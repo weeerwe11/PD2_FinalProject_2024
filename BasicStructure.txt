@@ -3,8 +3,8 @@
 //基本功能；將使用者輸入的行程按日期、開始時間、結束時間排序並加入緊急度的權重，存入各自的日程表中(如 日記_userA.txt、日記_userB.txt)，可以自由喚出、刪改行程
 
 //日程格式；
-emergency 01        07        1300      1500      do_something
-->weight  ->day     ->week    ->start   ->end     ->schedule
+emergency 01     do_something
+->weight  ->day  ->schedule
 
 //功能:
     帳戶相關；
@@ -19,18 +19,28 @@ emergency 01        07        1300      1500      do_something
     操作相關；
         1.按輸入日期查詢日程
         2.按輸入日程查詢日期
-        2.直接查權重為Emergency的日程和其日期
-        3.輸出日記中所有日程
-        3.加入日程
-        4.刪除日程
+        3.直接查權重為Emergency的日程和其日期
+        4.輸出日記中所有日程
+        5.加入日程
+        6.刪除日程
             1.刪除特定日期的特定日程
             2.刪除特定日期的所有日程
             3.刪除所有日期的特定日程
             4.清空日記中所有日程
-        5.刪除已過日期前的日程
+        7.刪除已過日期前的日程
 
 //分工
     讀取、輸出檔案相關；林欣懋
+    FileRelated
+        input-導入對應帳號的日記
+        delete-刪除日記
     帳戶相關；林欣懋
+    AccountRelated
+        SignUp
+        LogIn
+        LogOut
     使用者輸入相關；林欣懋
+    InputRelated
     操作相關；林欣懋
+    OperationRelated
+
