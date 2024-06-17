@@ -26,35 +26,35 @@
 
 分工
     
-    讀取、輸出檔案相關：林欣懋
+讀取、輸出檔案相關：林欣懋
  
-    FileRelated
+FileRelated
         
-        parse-讀入日記
+parse-讀入日記
     
-        create-創建對應帳號的日記
+create-創建對應帳號的日記
     
-    帳戶相關：林欣懋
+帳戶相關：林欣懋
     
-    AccountRelated
+AccountRelated
         
-        SignUp-註冊
+SignUp-註冊
         
-        LogIn-登入
+LogIn-登入
     
-        exist-檢查帳號是否已經存在
+exist-檢查帳號是否已經存在
     
-    操作相關：林欣懋
+操作相關：林欣懋
     
-    OperationRelated
+OperationRelated
         
-        DQuery-用日期查日程
+DQuery-用日期查日程
         
-        SQuery-用日程查日期
+SQuery-用日程查日期
         
-        allOut-印出所有日程
+allOut-印出所有日程
         
-        add-加入日程
-        
-        delete-刪除日程
+add-加入日程
+    
+delete-刪除日程
         
