@@ -1,0 +1,5 @@
+1106 walk
+0405 jogging
+0918 read
+0215 doHomeWork
+0818 sleep
