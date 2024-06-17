@@ -3,7 +3,9 @@
 基本功能：將使用者輸入的行程按日期存入各自的帳號中(如 userA.txt、userB.txt)，可以自由喚出、刪改行程
 
 日程格式：
+
 0101    do_something
+
 ->date  ->schedule
 
 功能：
