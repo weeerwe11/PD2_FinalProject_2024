@@ -15,10 +15,10 @@ public class FileRelated {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] entries = line.split("\\s+");
-                int day = Integer.parseInt(entries[0]);
+                int date = Integer.parseInt(entries[0]);
                 String schedule = entries[1];
 
-                diary.computeIfAbsent(day, k -> new ArrayList<String>()).add(schedule);
+                diary.computeIfAbsent(date, k -> new ArrayList<String>()).add(schedule);
             }
         } catch (IOException e) {
             e.printStackTrace();
