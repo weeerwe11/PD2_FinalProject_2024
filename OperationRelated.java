@@ -1,3 +1,7 @@
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -47,11 +51,43 @@ public class OperationRelated { //form:
         }
     }
 
-    public void add(int date, String schedule, Map<Integer, List<String>> operator, String accountData) {
-        
+    public void add(int date, String schedule, Map<Integer, List<String>> operator, String fileName) {
+        operator.computeIfAbsent(date, k -> new ArrayList<>()).add(schedule);
+
+        //加完重寫diary
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(fileName))) {
+            for (Map.Entry<Integer, List<String>> entry : operator.entrySet()) {
+                for (String scheduleItem : entry.getValue()) {
+                    bw.write(entry.getKey() + " " + scheduleItem);
+                    bw.newLine();
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void delete(String schedule, Map<Integer, List<String>> operator, String fileName) {
+        for (Map.Entry<Integer, List<String>> entry : operator.entrySet()) {
+            if (entry.getValue().remove(schedule)) {
+                //刪完如果空了就把那天刪了
+                if (entry.getValue().isEmpty()) {
+                    operator.remove(entry.getKey());
+                }
+                break;
+            }
+        }
 
+        //刪完重寫diary
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(fileName))) {
+            for (Map.Entry<Integer, List<String>> entry : operator.entrySet()) {
+                for (String scheduleItem : entry.getValue()) {
+                    bw.write(entry.getKey() + " " + scheduleItem);
+                    bw.newLine();
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
