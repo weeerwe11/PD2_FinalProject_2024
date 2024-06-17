@@ -1,11 +1,6 @@
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.Reader;
+import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
-
-import Code.AccountRelated.AccountRelated;
-import Code.FileRelated.FileRelated;
-import Code.OperationRelated.OperationRelated;
 
 public class MainStructure {
     public static void main(String[] args) {
@@ -14,77 +9,115 @@ public class MainStructure {
         FileRelated fr = new FileRelated();
         OperationRelated or = new OperationRelated();
 
-
         String accountName;
         String fileName;
         int option1 = 0;
         int option2 = 0;
-        String weight = "";
+        String option3 = "";
         int day = 0;
         String schedule = "";
-        
-        //String name = "";
-        //do{
-
-        //}
-        //while(name=="");
 
         //登陸or註冊
         while(true) {
-            System.out.println("Sign in press 1, Log in press 2");
-            option1 = scanner.nextInt();
-            if(option1 == 1) {
-                accountName = scanner.next();
-                ar.LogIn(accountName);
-                if(ar.exist(accountName)) {
-                    break;
-                }
+            System.out.println("註冊請按1，登錄請按2：");
+            
+            while (!scanner.hasNextInt()) {
+                System.out.println("請輸入有效選項（1或2）：");
+                scanner.next();  //清除緩衝區
             }
-            else if(option1 == 2) {
-                accountName = scanner.next();
+
+            option1 = scanner.nextInt();
+            scanner.nextLine();
+            if(option1 == 1) {
+                System.out.println("請輸入帳號名稱進行註冊：");
+                accountName = scanner.nextLine();
                 ar.SignUp(accountName);
                 if(ar.exist(accountName)) {
                     break;
                 }
             }
+            else if(option1 == 2) {
+                System.out.println("請輸入帳號名稱進行登錄：");
+                accountName = scanner.nextLine();
+                ar.LogIn(accountName);
+                if(ar.exist(accountName)) {
+                    break;
+                }
+            }
+            System.out.println("請輸入有效選項（1或2）：");
+            scanner.next();
         }
+        
         fileName = accountName + ".txt";
-        fr.parse(fileName); //讀入日記
+        Map<Integer, List<String>> operationFile = fr.parse(fileName); //讀入日記
         
         //操作
         while(true) {
+            System.out.println("請選擇操作：");
+            System.out.println("(1)-按日期查詢日程");
+            System.out.println("(2)-按日程查詢日期");
+            System.out.println("(3)-輸出所有日程");
+            System.out.println("(4)-加入日程");
+            System.out.println("(5)-刪除日程");
+            System.out.println("其他數字-登出");
+
+            while (!scanner.hasNextInt()) {
+                System.out.println("請輸入有效選項：");
+                System.out.println("(1)-按日期查詢日程");
+                System.out.println("(2)-按日程查詢日期");
+                System.out.println("(3)-輸出所有日程");
+                System.out.println("(4)-加入日程");
+                System.out.println("(5)-刪除日程");
+                System.out.println("其他數字-登出");
+                scanner.next();
+            }
+            
             option2 = scanner.nextInt();
+            scanner.nextLine();
+
             if(option2 == 1) {  //按輸入日期查詢日程
+                System.out.println("請輸入日期(例；一月一日請輸入0101)：");
                 day = scanner.nextInt();
-                //hashmap裡找對應的key
-                or.DQuary(day);
+                scanner.nextLine();
+                or.DQuery(day, operationFile);
             }
             else if(option2 == 2) {  //按輸入日程查詢日期
-                schedule = scanner.next();
-                //hashmap裡找對應的value
-                or.SQuary(schedule);
+                System.out.println("請輸入日程：");
+                schedule = scanner.nextLine();
+                or.SQuery(schedule, operationFile);
             }
-            else if(option2 == 3) {  //直接查權重為Emergency的日程和其日期
-                or.searchEme();
+            else if(option2 == 3) {  //輸出日記中所有日程
+                or.allOut(operationFile);
             }
-            else if(option2 == 4) {  //輸出日記中所有日程
-                or.allOut();
-            }
-            else if(option2 == 5) {  //加入日程
+            else if(option2 == 4) {  //加入日程
+                System.out.println("請輸入日期(例；一月一日請輸入0101)：");
                 day = scanner.nextInt();
-                schedule = scanner.next();
-                or.add();
+                scanner.nextLine();
+                System.out.println("請輸入日程：");
+                schedule = scanner.nextLine();
+                or.add(day, schedule, operationFile, fileName);
             }
-            else if(option2 == 6) {  //刪除日程
-                or.delete();
-            
-            }
-            else if(option2 == 7) {  //刪除已過日期前的日程
-            
+            else if(option2 == 5) {  //刪除日程
+                System.out.println("請輸入要刪除的日程：");
+                schedule = scanner.nextLine();
+                or.delete(schedule, operationFile, fileName);
             }
             else {  //logout
+                System.out.println("登出成功。");
                 break;
             }
+            System.out.println("是否繼續操作(y/n)");
+            option3 = scanner.nextLine();
+            if(option3.equals("y")) {
+                continue;
+            }
+            else if(option3.equals("n")) {
+                break;
+            }
+            else {
+                System.out.println("無效操作");
+            }
         }
+        scanner.close();
     }
 }
