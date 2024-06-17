@@ -19,7 +19,9 @@ public class MainStructure {
 
         //登陸or註冊
         while(true) {
-            System.out.println("註冊請按1，登錄請按2：");
+            System.out.println("請選擇操作：");
+            System.out.println("(1)-註冊帳號");
+            System.out.println("(2)-登入帳號");
             
             while (!scanner.hasNextInt()) {
                 System.out.println("請輸入有效選項（1或2）：");
@@ -44,8 +46,6 @@ public class MainStructure {
                     break;
                 }
             }
-            System.out.println("請輸入有效選項（1或2）：");
-            scanner.next();
         }
         
         fileName = accountName + ".txt";
